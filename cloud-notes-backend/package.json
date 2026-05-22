@@ -1,25 +1,15 @@
 {
-  "name": "cloud-notes-free",
+  "name": "cloud-notes-backend",
   "version": "1.0.0",
-  "description": "Completely free cloud notes with iCloud backup",
+  "description": "Cloud notes backend with Supabase",
   "main": "notes-backend-supabase-free.js",
   "scripts": {
     "start": "node notes-backend-supabase-free.js",
-    "dev": "nodemon notes-backend-supabase-free.js"
+    "dev": "node notes-backend-supabase-free.js"
   },
-  "keywords": ["notes", "free", "supabase", "icloud"],
-  "author": "",
-  "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
     "cors": "^2.8.5",
     "@supabase/supabase-js": "^2.38.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
-  },
-  "engines": {
-    "node": ">=14.0.0"
   }
 }
-
