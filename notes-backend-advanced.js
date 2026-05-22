@@ -3,7 +3,7 @@ const cors = require('cors');
 const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
 app.use(cors());
 app.use(express.json());
@@ -63,17 +63,6 @@ app.post('/api/notebooks/:userId', async (req, res) => {
   }
 });
 
-app.delete('/api/notebooks/:userId/:notebookId', async (req, res) => {
-  try {
-    const { notebookId } = req.params;
-    const { error } = await supabase.from('notebooks').delete().eq('id', notebookId);
-    if (error) return res.status(400).json({ error: error.message });
-    res.json({ success: true });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
 app.get('/api/notebooks/:notebookId/pages', async (req, res) => {
   try {
     const { notebookId } = req.params;
@@ -127,22 +116,6 @@ app.delete('/api/pages/:pageId', async (req, res) => {
     const { error } = await supabase.from('pages').delete().eq('id', pageId);
     if (error) return res.status(400).json({ error: error.message });
     res.json({ success: true });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.get('/api/search/:userId', async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const { query } = req.query;
-    const { data, error } = await supabase
-      .from('pages')
-      .select('*')
-      .eq('user_id', userId)
-      .or(`title.ilike.%${query}%,content.ilike.%${query}%`);
-    if (error) return res.status(400).json({ error: error.message });
-    res.json(data || []);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
