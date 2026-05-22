@@ -139,3 +139,17 @@ app.delete('/api/pages/:pageId', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Cloud Notes API running on port ${PORT}`);
 });
+
+// Delete notebook
+app.delete('/api/notebooks/:userId/:notebookId', async (req, res) => {
+  try {
+    const { error } = await supabase
+      .from('notebooks')
+      .delete()
+      .eq('id', req.params.notebookId);
+    if (error) throw error;
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
